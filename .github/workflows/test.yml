@@ -43,7 +43,7 @@ jobs:
           pip install pytest requests
       - name: Levantar el microservicio
         run: |
-          python services/usuarios/app.py
+          python services/usuarios/app.py &
       - name: Ejecutar pruebas con Pytest
         env:
           # Indicamos al código que la DB está en localhost para el entorno de GitHub
