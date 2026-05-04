@@ -53,4 +53,5 @@ jobs:
           DB_NAME: biblioteca
         run: |
           # Ejecutamos las pruebas apuntando a tu archivo de test
-          pytest services/usuarios/test_usuarios.py
+          cd tests
+          pytest
