@@ -1,12 +1,13 @@
-name: Python Test CI
+name: Pruebas Biblioteca - CI
 
+# Se define cuando se inicia este workflow
 on: [push, pull_request]
 
 jobs:
   test:
+    # Se inicia una máquina virtual Ubuntu
     runs-on: ubuntu-latest
-
-    # Definimos el servicio de base de datos
+    # Se define el servicio de base de datos MySQL
     services:
       mysql:
         image: mysql:8.0
@@ -15,42 +16,44 @@ jobs:
           MYSQL_DATABASE: biblioteca
         ports:
           - 3306:3306
-        # El health check es vital para que las pruebas no fallen por falta de conexión inicial
+        # Se realiza health check, para asegurar que las pruebas no fallen por falta de conexión inicial
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-
     steps:
+      # Se descarga el repositorio a la máquina virtual
       - name: Checkout del código
         uses: actions/checkout@v3
-
-      - name: Configurar Python
+      # Se instala python 
+      - name: Instalación Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
-      - name: Preparar Base de Datos
+      # Se prepara la base de datos
+      - name: Preparación Base de Datos
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS biblioteca;"
           mysql -h 127.0.0.1 -u root -proot biblioteca < biblioteca.sql
-
+      # Se instalan dependencias para microservicios y pruebas
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest requests
-      - name: Levantar el microservicio
+      # Se levanta el microservicio en segundo plano
+      - name: Ejecución del microservicio
         run: |
           python services/usuarios/app.py &
-      - name: Ejecutar pruebas con Pytest
+      # Se ejecutan las pruebas
+      - name: Ejecución pruebas con Pytest
         env:
-          # Indicamos al código que la DB está en localhost para el entorno de GitHub
+          # Se indicas al código que la DB está en localhost para el entorno de GitHub
           DB_HOST: 127.0.0.1
           DB_USER: root
           DB_PASSWORD: root
           DB_NAME: biblioteca
+        # Se especifica carpeta para los tests
         run: |
-          # Ejecutamos las pruebas apuntando a tu archivo de test
           pytest services/usuarios/test_usuarios.py
