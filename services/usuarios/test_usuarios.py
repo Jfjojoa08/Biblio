@@ -81,7 +81,7 @@ class Test_usuarios:
     # Para cuando el usuario existe y se modifica con éxito
     def test_modifica1(self):
         id = "final881"
-        nombre = "Fidelino Nalisco"
+        nombre = "Fidelin Nalisco"
         contra = hashlib.sha512("4321".encode("UTF-8")).hexdigest()
         nuevo = {"id":id, "nombre":nombre, "contrasena":contra}
         esperado = "Usuario modificado con éxito"
@@ -90,6 +90,7 @@ class Test_usuarios:
         # Verificar la prueba
         assert calculado.status_code == 200
         assert esperado in calculado.json()["mensaje"]
+        mi_db.commit()
         sql =f"SELECT * FROM usuarios WHERE idUsuario='{id}'"
         mi_cursor.execute(sql)
         datos = mi_cursor.fetchall()[0]
