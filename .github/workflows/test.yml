@@ -30,8 +30,8 @@ jobs:
 
       - name: Preparación Base de Datos
         run: |
-          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE IF NOT EXISTS biblioteca;"
-          mysql -h 127.0.0.1 -u root -proot biblioteca < biblioteca.sql
+          mysql -h 127.0.0.1 -u root -e "CREATE DATABASE IF NOT EXISTS biblio;"
+          mysql -h 127.0.0.1 -u root biblio < biblioteca.sql
 
       - name: Instalar dependencias
         run: |
@@ -47,13 +47,7 @@ jobs:
           python services/editoriales/app.py &
           sleep 3
 
-      # Ejecutar todas las pruebas
       - name: Ejecución pruebas con Pytest
-        env:
-          DB_HOST: 127.0.0.1
-          DB_USER: root
-          DB_PASSWORD: root
-          DB_NAME: biblioteca
         run: |
           pytest services/usuarios/test_usuarios.py
           pytest services/paises/test_paises.py
