@@ -32,9 +32,8 @@ class Pais(Resource):
         if len(resultado) == 0:
             return jsonify({"mensaje": "País no existe"})
         else:
-            mis_paises.modificar(nuevo["id"], nuevo["nombre"], nuevo["continente"])
-            return jsonify({"mensaje": "País modificado con éxito"})
-
+            mis_paises.modificar(id, nuevo["nombre"], nuevo["continente"])
+        return jsonify({"mensaje": "País modificado con éxito"})
     def delete(self, id):
         resultado = mis_paises.consultar(id)
         if len(resultado) == 0:

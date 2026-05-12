@@ -75,6 +75,7 @@ class Test_paises:
         # Verificar la prueba
         assert calculado.status_code == 200
         assert esperado in calculado.json()["mensaje"]
+        mi_db.commit()   
         sql = f"SELECT * FROM paises WHERE idPais='{id}'"
         mi_cursor.execute(sql)
         datos = mi_cursor.fetchall()[0]
