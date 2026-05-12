@@ -1,0 +1,11 @@
+[
+  "test_paises.py::Test_paises::test_agregar[nuevo_entrada0-Pa\\xeds agregado con \\xe9xito]",
+  "test_paises.py::Test_paises::test_agregar[nuevo_entrada1-Id de pa\\xeds ya existe]",
+  "test_paises.py::Test_paises::test_busqueda[CO-Pa\\xeds encontrado]",
+  "test_paises.py::Test_paises::test_busqueda[ZZ-Pa\\xeds no encontrado]",
+  "test_paises.py::Test_paises::test_elimina[AR-Pa\\xeds eliminado con \\xe9xito!]",
+  "test_paises.py::Test_paises::test_elimina[ZZ-Pa\\xeds no existe]",
+  "test_paises.py::Test_paises::test_lista_paises",
+  "test_paises.py::Test_paises::test_modifica1",
+  "test_paises.py::Test_paises::test_modifica2"
+]
